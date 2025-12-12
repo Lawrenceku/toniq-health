@@ -12,9 +12,11 @@ import { cn } from '@/lib/utils'
 import { useUser } from '@/hooks/use-user'
 import { Card } from '@/components/ui/card'
 import { Wallet } from 'lucide-react'
+import { useTranslation } from '@/hooks/use-translation'
 
 export default function DashboardPage() {
     const { user: userProfile, transactions, balance, isLoading } = useUser()
+    const { t } = useTranslation()
     const { user } = useAuthStore() // Keep for now if useUser isn't ready immediately
     // Fallback logic for user name
     const finalUser = userProfile || user
@@ -57,7 +59,7 @@ export default function DashboardPage() {
             {/* Wallet Balance Card - Mobile First */}
             <Card className="p-4 bg-primary text-primary-foreground">
                 <div className="flex items-center justify-between mb-2">
-                    <span className="text-primary-foreground/80 text-sm">Available Balance</span>
+                    <span className="text-primary-foreground/80 text-sm">{t('dashboard.balance')}</span>
                     <Wallet className="w-5 h-5 text-primary-foreground/80" />
                 </div>
                 <div className="text-3xl font-bold">
@@ -66,13 +68,12 @@ export default function DashboardPage() {
             </Card>
 
             <div>
-                <h2 className="text-lg font-semibold mb-3">Quick Actions</h2>
+                <h2 className="text-lg font-semibold mb-3">{t('dashboard.quickActions')}</h2>
                 <QuickActions />
             </div>
 
             <div>
-                <h2 className="text-lg font-semibold mb-3">Recent Activity</h2>
-                <h2 className="text-lg font-semibold mb-3">Recent Activity</h2>
+                <h2 className="text-lg font-semibold mb-3">{t('dashboard.recentActivity')}</h2>
                 <div className="space-y-2">
                     {isLoading ? (
                         <div className="p-4 text-center text-muted-foreground text-sm">Loading activity...</div>

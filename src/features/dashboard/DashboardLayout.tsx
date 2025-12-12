@@ -3,22 +3,27 @@
 import React from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Home, Coins, Banknote, History, ExternalLink, User as UserIcon, Vote, HeartPulse } from 'lucide-react'
+import { Home, Coins, Banknote, History, ExternalLink, User as UserIcon, Vote, HeartPulse, Settings } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { LanguageToggle } from '@/components/LanguageToggle'
 import { useUser } from '@/hooks/use-user'
-
-const NAV_ITEMS = [
-    { label: 'Home', href: '/dashboard', icon: Home },
-    { label: 'Health', href: '/dashboard/health', icon: HeartPulse },
-    { label: 'Loans', href: '/dashboard/loans', icon: Banknote },
-    { label: 'Earn', href: '/dashboard/earn', icon: Coins },
-    { label: 'Community', href: '/dashboard/dao', icon: Vote },
-]
+import { useTranslation } from '@/hooks/use-translation'
 
 export function DashboardLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname()
     const { balance, isLoading } = useUser()
+    const { t } = useTranslation()
+
+    const NAV_ITEMS = [
+        { label: t('dashboard.tabs.home'), href: '/dashboard', icon: Home },
+        { label: t('dashboard.tabs.health'), href: '/dashboard/health', icon: HeartPulse },
+        { label: t('dashboard.tabs.loans'), href: '/dashboard/loans', icon: Banknote },
+        { label: t('dashboard.tabs.earn'), href: '/dashboard/earn', icon: Coins },
+        { label: t('dashboard.tabs.community'), href: '/dashboard/dao', icon: Vote },
+        // History removed per previous instruction, ensuring community is there.
+        // Adding Settings
+        { label: 'Settings', href: '/dashboard/settings', icon: Settings },
+    ]
 
     return (
         <div className="flex flex-col min-h-screen bg-muted/20">
@@ -30,7 +35,6 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
                         Toniq
                     </Link>
                     <div className="flex items-center gap-2">
-                        <LanguageToggle />
                         <div className="text-xs font-mono bg-muted px-2 py-1 rounded hidden md:block">
                             {isLoading ? '...' : (balance ?? 0)} Tokens
                         </div>
