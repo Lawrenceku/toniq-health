@@ -53,7 +53,7 @@ export default function HealthPage() {
         // Mock AI Response Logic
         setTimeout(() => {
             const lowerInput = userMsg.text.toLowerCase()
-            let replyText = "I understand. Could you describe your symptoms in more detail?"
+            let replyText = "Could you describe your symptoms in more detail?"
 
             if (lowerInput.includes('fever')) {
                 replyText = "I see you have a fever. Temperature above 38°C? Please stay hydrated. I recommend visiting a clinic if it persists for 24 hours. Would you like to locate the nearest hospital?"
@@ -103,7 +103,7 @@ export default function HealthPage() {
                             <Bot className="w-5 h-5 text-blue-600" />
                         </div>
                         <div>
-                            <CardTitle className="text-sm">Dr. AI Assistant</CardTitle>
+                            <CardTitle className="text-sm">Toniq AI Assistant</CardTitle>
                             <CardDescription className="text-xs flex items-center gap-1">
                                 <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" /> Online
                             </CardDescription>
@@ -155,7 +155,7 @@ export default function HealthPage() {
                 <div className="p-4 border-t bg-background">
                     <form onSubmit={handleSend} className="flex gap-2">
                         <Input
-                            placeholder="Type 'Fever', 'Malaria'..."
+                            placeholder="Type in your symptoms..."
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
                             disabled={isTyping}

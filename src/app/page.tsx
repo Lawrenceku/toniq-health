@@ -1,5 +1,10 @@
 // ... imports
+'use client';
+
 import { useTranslation } from '@/hooks/use-translation'
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
+import { ShieldCheck, HeartPulse, Coins } from 'lucide-react'
 
 export default function Home() {
   const { t } = useTranslation()

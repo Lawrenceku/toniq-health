@@ -11,7 +11,8 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Upload, Activity, Database } from 'lucide-react'
 import { Switch } from '@/components/ui/switch'
-
+import { useStepTracker } from '@/hooks/use-step-tracker'
+import { Footprints } from 'lucide-react'
 // Mock Questions
 const QUESTIONS = [
     { id: 1, text: "Which of these is a symptom of Malaria?", options: ["High Fever", "Broken Bone", "Toothache", "Hair Loss"], correctIndex: 0 },
@@ -20,6 +21,7 @@ const QUESTIONS = [
 ]
 
 export default function EarnPage() {
+    const { steps, isSupported, requestPermission, permissionGranted, resetSteps } = useStepTracker()
     const [balance, setBalance] = useState(450)
     const [quizOpen, setQuizOpen] = useState(false)
     const [uploadOpen, setUploadOpen] = useState(false)
@@ -65,17 +67,33 @@ export default function EarnPage() {
                 </CardHeader>
                 <CardContent className="flex items-center justify-between">
                     <div>
-                        <p className="text-3xl font-bold">8,432</p>
-                        <p className="text-xs text-muted-foreground">Steps Today</p>
+                        <div className="flex items-baseline gap-1">
+                            <p className="text-3xl font-bold transition-all">{steps.toLocaleString()}</p>
+                            <span className="text-xs text-muted-foreground uppercase">Steps</span>
+                        </div>
+                        {!permissionGranted && isSupported && (
+                            <p className="text-xs text-amber-600 mt-1 cursor-pointer hover:underline" onClick={requestPermission}>
+                                ⚠️ Tap to enable step counting
+                            </p>
+                        )}
+                        {!isSupported && <p className="text-xs text-muted-foreground mt-1">Sensor not available</p>}
                     </div>
                     <Button onClick={() => {
-                        setBalance(b => b + 50)
-                        alert("50 Tokens Claimed!")
+                        if (steps < 100) {
+                            alert("Walk at least 100 steps to claim!")
+                            return
+                        }
+                        const earned = Math.floor(steps / 100) // 1 token per 100 steps
+                        setBalance(b => b + earned)
+                        resetSteps()
+                        alert(`${earned} Tokens Claimed! Keep walking!`)
                     }}>
-                        Sync & Claim (+50)
+                        <Footprints className="w-4 h-4 mr-2" /> Sync & Claim
                     </Button>
                 </CardContent>
             </Card>
+
+            {/* ... Rest of code ... */}
 
             {/* DeSci Data Share */}
             <Card>
@@ -92,8 +110,8 @@ export default function EarnPage() {
                     </div>
                     <div className="flex items-center gap-2">
                         <span className="text-sm font-medium">Off</span>
-                        <Switch onCheckedChange={(checked: boolean) => {
-                            if (checked) {
+                        <Switch onChange={(e) => {
+                            if (e.target.checked) {
                                 setTimeout(() => alert("Pfizer Research paid ₦500 for your data. Your wallet was credited."), 1000)
                             }
                         }} />

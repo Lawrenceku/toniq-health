@@ -1,7 +1,20 @@
 // ... imports
+'use client';
+
 import { useTranslation } from '@/hooks/use-translation'
 
-// ... existing code
+import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { OTPLogin } from '@/features/auth/OTPLogin'
+import { PlanSelection } from '@/features/onboarding/PlanSelection'
+import { IdentificationForm } from '@/features/onboarding/IdentificationForm'
+import { PhotoVerification } from '@/features/onboarding/PhotoVerification'
+import { Button } from '@/components/ui/button'
+import { ChevronLeft } from 'lucide-react'
+import { PaymentModal } from '@/features/payments/PaymentModal'
+
+type Step = 'otp' | 'identification' | 'photo' | 'plan'
+
 
 export default function OnboardingPage() {
     const { t } = useTranslation()
@@ -12,6 +25,19 @@ export default function OnboardingPage() {
     // ... handleNext logic ...
 
     // ... handlePaymentSuccess logic ...
+    const handleNext = (nextStep: Step | 'done') => {
+        if (nextStep === 'done') {
+            // Instead of redirecting immediately, open payment modal
+            setIsPaymentOpen(true)
+        } else {
+            setStep(nextStep)
+        }
+    }
+
+    const handlePaymentSuccess = () => {
+        setIsPaymentOpen(false)
+        router.push('/dashboard')
+    }
 
     return (
         <div className="min-h-screen bg-background flex flex-col">
