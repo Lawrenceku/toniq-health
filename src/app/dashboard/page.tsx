@@ -17,7 +17,7 @@ import { useTranslation } from '@/hooks/use-translation'
 export default function DashboardPage() {
     const { user: userProfile, transactions, balance, isLoading } = useUser()
     const { t } = useTranslation()
-    const { user } = useAuthStore() // Keep for now if useUser isn't ready immediately
+    const { user } = useAuthStore()
     // Fallback logic for user name
     const finalUser = userProfile || user
 
@@ -39,8 +39,8 @@ export default function DashboardPage() {
         <div className="space-y-6">
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-2xl font-bold">Hello, {userName}</h1>
-                    <p className="text-muted-foreground text-sm">Welcome back to Toniq.</p>
+                    <h1 className="text-2xl font-bold">{t('dashboard.welcome')}, {userName}</h1>
+                    <p className="text-muted-foreground text-sm">{t('dashboard.welcomeBack')}</p>
                 </div>
                 <div className="relative p-2 bg-muted rounded-full">
                     <Bell className="w-5 h-5 text-foreground" />
@@ -76,7 +76,7 @@ export default function DashboardPage() {
                 <h2 className="text-lg font-semibold mb-3">{t('dashboard.recentActivity')}</h2>
                 <div className="space-y-2">
                     {isLoading ? (
-                        <div className="p-4 text-center text-muted-foreground text-sm">Loading activity...</div>
+                        <div className="p-4 text-center text-muted-foreground text-sm">{t('common.loading')}</div>
                     ) : transactions?.map((tx: any) => (
                         <div key={tx.id} className="flex items-center justify-between p-3 bg-card border rounded-lg text-sm">
                             <div className="flex flex-col">

@@ -1,10 +1,8 @@
-'use client'
-
-import Link from 'next/link'
-import { Button } from '@/components/ui/button'
-import { ShieldCheck, HeartPulse, Coins } from 'lucide-react'
+// ... imports
+import { useTranslation } from '@/hooks/use-translation'
 
 export default function Home() {
+  const { t } = useTranslation()
   return (
     <div className="flex flex-col min-h-screen">
       <header className="px-6 py-4 flex items-center justify-between border-b bg-background/95 backdrop-blur-sm sticky top-0 z-50">
@@ -39,16 +37,16 @@ export default function Home() {
 
           <div className="relative z-10 flex flex-col items-center gap-6">
             <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-balance">
-              Health Insurance for <span className="text-primary">Everyone</span>
+              {t('landing.headline')}
             </h1>
             <p className="text-lg text-muted-foreground max-w-md text-balance">
-              Instant coverage from ₦800/month. Earn tokens while staying healthy to pay for it.
+              {t('landing.subheadline')}
             </p>
             <div className="flex flex-col w-full max-w-xs gap-3">
               <Button size="lg" className="w-full text-lg h-12" asChild>
-                <Link href="/onboarding">Get Insured Now</Link>
+                <Link href="/onboarding">{t('landing.cta')}</Link>
               </Button>
-              <p className="text-xs text-muted-foreground">No paperwork. Instant activation.</p>
+              <p className="text-xs text-muted-foreground">{t('landing.noPaperwork')}</p>
             </div>
           </div>
         </section>
@@ -57,13 +55,13 @@ export default function Home() {
         <section className="grid grid-cols-1 md:grid-cols-3 gap-6 p-6 container mx-auto">
           <div className="p-6 rounded-2xl bg-card border shadow-sm">
             <ShieldCheck className="w-10 h-10 text-primary mb-4" />
-            <h3 className="font-bold text-lg">Instant Claims</h3>
-            <p className="text-muted-foreground text-sm">Get paid in minutes, not weeks, thanks to AI verification.</p>
+            <h3 className="font-bold text-lg">{t('landing.instantClaims')}</h3>
+            <p className="text-muted-foreground text-sm">{t('landing.instantClaimsDesc')}</p>
           </div>
           <div className="p-6 rounded-2xl bg-card border shadow-sm">
             <Coins className="w-10 h-10 text-secondary mb-4" />
-            <h3 className="font-bold text-lg">Play-to-Earn</h3>
-            <p className="text-muted-foreground text-sm">Complete health quizzes and checkups to earn $HEALTH tokens.</p>
+            <h3 className="font-bold text-lg">{t('landing.playToEarn')}</h3>
+            <p className="text-muted-foreground text-sm">{t('landing.playToEarnDesc')}</p>
           </div>
           <div className="p-6 rounded-2xl bg-card border shadow-sm">
             <HeartPulse className="w-10 h-10 text-red-500 mb-4" />

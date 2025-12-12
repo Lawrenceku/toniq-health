@@ -1,3 +1,70 @@
+// 'use client'
+
+// import React from 'react'
+// import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+// import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+// import { Label } from '@/components/ui/label'
+// import { useTranslation } from '@/hooks/use-translation'
+// import { Globe } from 'lucide-react'
+// import { Switch } from '@/components/ui/switch'
+// import { useTheme } from 'next-themes'
+// import { Moon, Sun, Monitor, Languages, Palette } from 'lucide-react'
+
+
+
+// export default function SettingsPage() {
+//     const { theme, setTheme } = useTheme()
+//     const { locale, setLocale, t } = useTranslation()
+
+//     return (
+//         <div className="space-y-6">
+//             <div>
+//                 <h1 className="text-2xl font-bold">{t('common.settings')}</h1>
+//                 <p className="text-muted-foreground text-sm">Manage preferences</p>
+//             </div>
+
+//             <Card>
+//                 <CardHeader>
+//                     <CardTitle className="flex items-center gap-2">
+//                         <Globe className="w-5 h-5" />
+//                         {t('common.language')}
+//                     </CardTitle>
+//                     <CardDescription>{t('common.selectLanguage')}</CardDescription>
+//                 </CardHeader>
+//                 <CardContent>
+//                     <div className="space-y-2 max-w-xs">
+//                         <Label htmlFor="language">Display Language</Label>
+//                         <Select
+//                             value={locale}
+//                             onValueChange={(val: any) => setLocale(val)}
+//                         >
+//                             <SelectTrigger id="language">
+//                                 <SelectValue placeholder="Select language" />
+//                             </SelectTrigger>
+//                             <SelectContent>
+//                                 <SelectItem value="en">English</SelectItem>
+//                                 <SelectItem value="pcm">Pidgin (Naija)</SelectItem>
+//                                 <SelectItem value="ha">Hausa</SelectItem>
+//                                 <SelectItem value="yo">Yoruba</SelectItem>
+//                                 <SelectItem value="ig">Igbo</SelectItem>
+//                             </SelectContent>
+//                         </Select>
+//                         <p className="text-xs text-muted-foreground">The app text will update immediately.</p>
+//                     </div>
+//                 </CardContent>
+//             </Card>
+
+//             <div className="text-center text-xs text-muted-foreground pt-10">
+//                 <p>Toniq Health v1.0.4</p>
+//             </div>
+//         </div>
+//     )
+// }
+
+
+
+
+
 'use client'
 
 import React from 'react'
@@ -87,6 +154,7 @@ export default function SettingsPage() {
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="en">🇺🇸 English</SelectItem>
+                                <SelectItem value="pcm">Pidgin (Naija)</SelectItem>
                                 <SelectItem value="ha">🇳🇬 Hausa</SelectItem>
                                 <SelectItem value="yo">🇳🇬 Yoruba</SelectItem>
                                 <SelectItem value="ig">🇳🇬 Igbo</SelectItem>

@@ -1,35 +1,17 @@
-'use client';
+// ... imports
+import { useTranslation } from '@/hooks/use-translation'
 
-import React, { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import { OTPLogin } from '@/features/auth/OTPLogin'
-import { PlanSelection } from '@/features/onboarding/PlanSelection'
-import { IdentificationForm } from '@/features/onboarding/IdentificationForm'
-import { PhotoVerification } from '@/features/onboarding/PhotoVerification'
-import { Button } from '@/components/ui/button'
-import { ChevronLeft } from 'lucide-react'
-import { PaymentModal } from '@/features/payments/PaymentModal'
-
-type Step = 'otp' | 'identification' | 'photo' | 'plan'
+// ... existing code
 
 export default function OnboardingPage() {
+    const { t } = useTranslation()
     const [step, setStep] = useState<Step>('otp')
     const [isPaymentOpen, setIsPaymentOpen] = useState(false)
     const router = useRouter()
 
-    const handleNext = (nextStep: Step | 'done') => {
-        if (nextStep === 'done') {
-            // Instead of redirecting immediately, open payment modal
-            setIsPaymentOpen(true)
-        } else {
-            setStep(nextStep)
-        }
-    }
+    // ... handleNext logic ...
 
-    const handlePaymentSuccess = () => {
-        setIsPaymentOpen(false)
-        router.push('/dashboard')
-    }
+    // ... handlePaymentSuccess logic ...
 
     return (
         <div className="min-h-screen bg-background flex flex-col">
@@ -44,10 +26,10 @@ export default function OnboardingPage() {
                     </Button>
                 )}
                 <div className="mx-auto font-bold text-lg">
-                    {step === 'otp' && 'Create Account'}
-                    {step === 'identification' && 'Verify Identity'}
-                    {step === 'photo' && 'Biometric Capture'}
-                    {step === 'plan' && 'Select Plan'}
+                    {step === 'otp' && t('onboarding.createAccount')}
+                    {step === 'identification' && t('onboarding.verifyIdentity')}
+                    {step === 'photo' && t('onboarding.biometricCapture')}
+                    {step === 'plan' && t('onboarding.selectPlan')}
                 </div>
                 <div className="w-10" /> {/* Spacer */}
             </div>
