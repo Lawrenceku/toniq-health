@@ -8,19 +8,27 @@ import { IdentificationForm } from '@/features/onboarding/IdentificationForm'
 import { PhotoVerification } from '@/features/onboarding/PhotoVerification'
 import { Button } from '@/components/ui/button'
 import { ChevronLeft } from 'lucide-react'
+import { PaymentModal } from '@/features/payments/PaymentModal'
 
 type Step = 'otp' | 'identification' | 'photo' | 'plan'
 
 export default function OnboardingPage() {
     const [step, setStep] = useState<Step>('otp')
+    const [isPaymentOpen, setIsPaymentOpen] = useState(false)
     const router = useRouter()
 
     const handleNext = (nextStep: Step | 'done') => {
         if (nextStep === 'done') {
-            router.push('/dashboard') // Redirect to dashboard
+            // Instead of redirecting immediately, open payment modal
+            setIsPaymentOpen(true)
         } else {
             setStep(nextStep)
         }
+    }
+
+    const handlePaymentSuccess = () => {
+        setIsPaymentOpen(false)
+        router.push('/dashboard')
     }
 
     return (
@@ -61,6 +69,13 @@ export default function OnboardingPage() {
                     <PlanSelection onComplete={() => handleNext('done')} />
                 )}
             </div>
+
+            <PaymentModal
+                open={isPaymentOpen}
+                onOpenChange={setIsPaymentOpen}
+                amount={2500} // Mock amount or dynamic based on plan
+                onSuccess={handlePaymentSuccess}
+            />
         </div>
     )
 }
