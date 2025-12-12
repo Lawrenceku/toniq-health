@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Toniq-Health MVP
 
-## Getting Started
+Affordable blockchain health insurance for Nigeria. Built with Next.js 15, Wagmi, and Shadcn/UI.
 
-First, run the development server:
+## Features
+- **Instant Onboarding**: Login with Phone + World ID Verification (Mock).
+- **Flexible Payments**: Pay with Monnify (Fiat/USSD) or Crypto (USDT/cUSD).
+- **Play-to-Earn**: Earn $HEALTH tokens by taking health quizzes and uploading checkups.
+- **Loans**: Access low-interest loans based on your On-chain Credit Score.
+- **DAO**: Vote on catastrophic claims and manage the community treasury.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Quick Start
+1.  **Install Dependencies**:
+    ```bash
+    npm install
+    ```
+2.  **Run Development Server**:
+    ```bash
+    npm run dev
+    ```
+3.  **Open**: [http://localhost:3000](http://localhost:3000)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Deployment (Vercel)
+This repo is ready for one-click deployment to Vercel.
+1.  Push to GitHub.
+2.  Import project in Vercel.
+3.  Set Environment Variables (Optional for MVP Mocks):
+    - `NEXT_PUBLIC_WALLET_CONNECT_ID`
+    - `MONNIFY_API_KEY`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deployment (Mobile - Expo)
+To wrap this for Android:
+1.  Use Capacitor or Expo with `react-native-webview`.
+2.  Point the WebView to your Vercel URL.
+3.  Build using EAS Build.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Localization
+- Toggle between English, Hausa, Yoruba, and Igbo in the dashboard header.
 
-## Learn More
+## Mock Data Info
+- **World ID**: Click "Verify" in onboarding to simulate success.
+- **Payments**: Click "Transfer" or "Card" to simulate 2s processing.
+- **AI Claims**: Amounts > ₦50,000 are auto-flagged for Admin review.
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Architecture
+- `src/features`: Feature-based modular architecture.
+- `src/store`: Global Zustand state.
+- `src/lib/wagmi.ts`: Web3 configuration (Polygon/Celo support).
