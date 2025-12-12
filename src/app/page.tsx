@@ -15,7 +15,7 @@ export default function Home() {
           <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-primary-foreground">
             <HeartPulse className="w-5 h-5" />
           </div>
-          Toniq<span className='text-black'>Health</span>
+          <span className='text-black'>Toniq</span>Health
         </div>
         <Button variant="ghost" asChild>
           <Link href="/login">Login</Link>

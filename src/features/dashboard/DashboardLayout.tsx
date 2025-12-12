@@ -8,11 +8,23 @@ import { cn } from '@/lib/utils'
 import { LanguageToggle } from '@/components/LanguageToggle'
 import { useUser } from '@/hooks/use-user'
 import { useTranslation } from '@/hooks/use-translation'
+import { useState, useEffect } from 'react'
+import { User } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+
 
 export function DashboardLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname()
     const { balance, isLoading } = useUser()
     const { t } = useTranslation()
+    const [userImage, setUserImage] = useState<string | null>(null)
+
+    useEffect(() => {
+        const storedImage = localStorage.getItem('userProfileImage')
+        if (storedImage) {
+            setUserImage(storedImage)
+        }
+    }, [])
 
     const NAV_ITEMS = [
         { label: t('dashboard.tabs.home'), href: '/dashboard', icon: Home },
@@ -20,8 +32,6 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
         { label: t('dashboard.tabs.loans'), href: '/dashboard/loans', icon: Banknote },
         { label: t('dashboard.tabs.earn'), href: '/dashboard/earn', icon: Coins },
         { label: t('dashboard.tabs.community'), href: '/dashboard/dao', icon: Vote },
-        // History removed per previous instruction, ensuring community is there.
-        // Adding Settings
         { label: 'Settings', href: '/dashboard/settings', icon: Settings },
     ]
 
@@ -32,15 +42,19 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
                 <div className="container flex h-14 items-center justify-between">
                     <Link href="/dashboard" className="font-bold flex items-center gap-2">
                         <div className="w-6 h-6 bg-primary rounded-full" />
-                        Toniq
+                        <span><span className="text-foreground">Toniq</span><span className="text-primary">Health</span></span>
                     </Link>
                     <div className="flex items-center gap-2">
                         <div className="text-xs font-mono bg-muted px-2 py-1 rounded hidden md:block">
                             {isLoading ? '...' : (balance ?? 0)} Tokens
                         </div>
                         <Link href="/dashboard/profile">
-                            <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full bg-muted">
-                                <UserIcon className="h-4 w-4" />
+                            <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full bg-muted overflow-hidden">
+                                {userImage ? (
+                                    <img src={userImage} alt="Profile" className="h-full w-full object-cover" />
+                                ) : (
+                                    <UserIcon className="h-4 w-4" />
+                                )}
                             </Button>
                         </Link>
                     </div>
@@ -76,4 +90,3 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
     )
 }
 
-import { Button } from '@/components/ui/button' // Import needed for header
